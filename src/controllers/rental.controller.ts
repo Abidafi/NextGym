@@ -107,6 +107,33 @@ export const getProviderOrders = async (
   }
 };
 
+export const getRentalDetails = async (
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const id = req.params.id as string;
+
+    const order = await prisma.rentalOrder.findUnique({
+      where: { id },
+      include: { 
+        gearItem: true, 
+        payments: true,
+        customer: { select: { id: true, name: true, email: true } }
+      },
+    });
+
+    if (!order) {
+      return next(new AppError(404, 'Rental order not found'));
+    }
+
+    res.status(200).json({ success: true, data: order });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const updateOrderStatus = async (
   req: AuthenticatedRequest,
   res: Response,
