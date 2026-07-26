@@ -95,333 +95,77 @@ src/
 ├── prisma.ts
 └── server.ts
 ```
-## 🚀 Getting Started
 
-### Prerequisites
+## 🌐 API Endpoints Specification  Documentation
 
-- **Node.js** (v22 or higher)
-- **PostgreSQL** (v14 or higher)
-- **npm** or **yarn**
+All API endpoints have been fully tested using Postman. You can access the complete Postman documentation and route breakdown below:
 
-## 🌐 API Endpoints Specification
+🔗 **Postman API Docs:** [https://nextgym.onrender.com/](https://documenter.getpostman.com/view/51758518/2sBY4QtLLx)
 
-### 🔹 Authentication Module
+### Authentication
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/register` | Register new user (customer/provider) |
+| POST | `/api/auth/login` | Login user, return JWT |
+| GET | `/api/auth/me` | Get current authenticated user |
 
-### 1. User Registration
+### Gear (Public)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/gear` | Get all gear with filters (category, price, brand) |
+| GET | `/api/gear/:id` | Get gear details |
+| GET | `/api/categories` | Get all gear categories |
 
-**Access:** Public
+### Rental Orders
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/rentals` | Create new rental order |
+| GET | `/api/rentals` | Get user's rental orders |
+| GET | `/api/rentals/:id` | Get rental order details |
 
-**Description:** Register a new user account with contributor or maintainer role
+### Payments (Stripe)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/payments/create` | Create a payment intent/session for a rental order |
+| POST | `/api/payments/confirm` | Confirm/verify payment (webhook or callback) |
+| GET | `/api/payments` | Get user's payment history |
+| GET | `/api/payments/:id` | Get payment details |
 
-**Endpoint**
+### Provider Management
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/provider/gear` | Add gear to inventory |
+| PUT | `/api/provider/gear/:id` | Update gear listing |
+| DELETE | `/api/provider/gear/:id` | Remove gear from inventory |
+| GET | `/api/provider/orders` | Get provider's incoming orders |
+| PATCH | `/api/provider/orders/:id` | Update rental order status |
 
-`POST /api/auth/signup`
+### Reviews
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/reviews` | Create review (after rental return) |
 
-**Request Body**
-
-```json
-{
-  "name": "John Doe",
-  "email": "john.doe@devpulse.com",
-  "password": "securePassword123",
-  "role": "contributor"
-}
-```
-
-**Success Response (201 Created)**
-
-```json
-{
-  "success": true,
-  "message": "User registered successfully",
-  "data": {
-    "id": 1,
-    "name": "John Doe",
-    "email": "john.doe@devpulse.com",
-    "role": "contributor",
-    "created_at": "2026-01-20T09:00:00Z",
-    "updated_at": "2026-01-20T09:00:00Z"
-  }
-}
-```
-
----
-
-### 2. User Login
-
-**Access:** Public
-
-**Description:** Authenticate user and receive JWT token
-
-**Endpoint**
-
-`POST /api/auth/login`
-
-**Request Body**
-
-```json
-{
-  "email": "john.doe@devpulse.com",
-  "password": "securePassword123"
-}
-```
-
-**Success Response (200 OK)**
-
-```json
-{
-  "success": true,
-  "message": "Login successful",
-  "data": {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "user": {
-      "id": 1,
-      "name": "John Doe",
-      "email": "john.doe@devpulse.com",
-      "role": "contributor",
-      "created_at": "2026-01-20T09:00:00Z",
-      "updated_at": "2026-01-20T09:00:00Z"
-    }
-  }
-}
-```
- 
----
-
-### 🔹 Issues Module
-
-### 3. Create Issue
-
-**Access:** Authenticated users (`contributor`, `maintainer`)
-
-**Description:** Create a new bug report or feature request
-
-**Endpoint**
-
-`POST /api/issues`
-
-**Headers**
-
-```
-Authorization: <JWT_TOKEN>
-```
-
-**Request Body**
-
-```json
-{
-  "title": "Database connection timeout under load",
-  "description": "Pool exhausts after 50+ concurrent queries, causing 500 errors",
-  "type": "bug"
-}
-```
-
-**Success Response (201 Created)**
-
-```json
-{
-  "success": true,
-  "message": "Issue created successfully",
-  "data": {
-    "id": 45,
-    "title": "Database connection timeout under load",
-    "description": "Pool exhausts after 50+ concurrent queries, causing 500 errors",
-    "type": "bug",
-    "status": "open",
-    "reporter_id": 1,
-    "created_at": "2026-01-20T10:30:00Z",
-    "updated_at": "2026-01-20T10:30:00Z"
-  }
-}
-```
+### Admin
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/admin/users` | Get all users |
+| PATCH | `/api/admin/users/:id` | Update user status (suspend/activate) |
+| GET | `/api/admin/gear` | Get all gear listings |
+| GET | `/api/admin/rentals` | Get all rental orders |
 
 ---
 
-### 4. Get All Issues
-
-**Access:** Public
-
-**Description:** Retrieve all issues with optional sorting and filtering
-
-**Endpoint**
-
-`GET /api/issues?sort=newest`
-
-**Success Response (200 OK)**
-
-```json
-{
-  "success": true,
-  "message": "Issues retrived successfully",
-  "data": [
-    {
-      "id": 45,
-      "title": "Database connection timeout under load",
-      "description": "Pool exhausts after 50+ concurrent queries, causing 500 errors",
-      "type": "bug",
-      "status": "open",
-      "reporter": {
-        "id": 1,
-        "name": "John Doe",
-        "role": "contributor"
-      },
-      "created_at": "2026-01-20T10:30:00Z",
-      "updated_at": "2026-01-20T14:45:00Z"
-    }
-  ]
-}
-```
-
----
-
-### 5. Get Single Issue
-
-**Access:** Public
-
-**Description:** Retrieve full details of a specific issue
-
-**Endpoint**
-
-`GET /api/issues/:id`
-
-**Success Response (200 OK)**
-
-```json
-{
-  "success": true,
-  "message": "Issue retrived successfully",
-  "data": {
-    "id": 45,
-    "title": "Database connection timeout under load",
-    "description": "Pool exhausts after 50+ concurrent queries, causing 500 errors",
-    "type": "bug",
-    "status": "open",
-    "reporter": {
-      "id": 1,
-      "name": "John Doe",
-      "role": "contributor"
-    },
-    "created_at": "2026-01-20T10:30:00Z",
-    "updated_at": "2026-01-20T14:45:00Z"
-  }
-}
-```
-
----
-
-### 6. Update Issue
-
-**Access:** Maintainer (any issue) OR Contributor (own issue, only if status is `open`)
-
-**Description:** Update issue title, description, or type
-
-**Endpoint**
-
-`PATCH /api/issues/:id`
-
-**Headers**
-
-```
-Authorization: <JWT_TOKEN>
-```
-
-**Request Body**
-
-```json
-{
-  "title": "Updated: Database pool exhaustion fix needed",
-  "description": "Updated description with reproduction steps...",
-  "type": "bug"
-}
-```
-
-**Success Response (200 OK)**
-
-```json
-{
-  "success": true,
-  "message": "Issue updated successfully",
-  "data": {
-    "id": 45,
-    "title": "Updated: Database pool exhaustion fix needed",
-    "description": "Updated description with reproduction steps...",
-    "type": "bug",
-    "status": "in_progress",
-    "reporter_id": 1,
-    "created_at": "2026-01-20T10:30:00Z",
-    "updated_at": "2026-01-20T14:45:00Z"
-  }
-}
-```
-
----
-
-### 7. Delete Issue
-
-**Access:** Maintainer only
-
-**Description:** Permanently remove an issue from the system
-
-**Endpoint**
-
-`DELETE /api/issues/:id`
-
-**Headers**
-
-```
-Authorization: <JWT_TOKEN>
-```
-
-**Success Response (200 OK)**
-
-```json
-{
-  "success": true,
-  "message": "Issue deleted successfully"
-}
-```
-
----
 ## 🚀 Deployment Guide (Render)
 
 Follow these steps to deploy the Express & TypeScript backend to **Render**.
 
-### Step 1: Production Configuration
-Ensure your application is configured for a production environment before deploying.
-
-1. **Dynamic Port Binding** (`src/server.ts`):
-   
-   ```typescript
-   const PORT = process.env.PORT || 5000;
-   ```
-   
-2. **Production Scripts** (`package.json`):
-   
-   ```json
-   "scripts": {
-      "build": "tsc",
-      "start": "node dist/server.js",
-      "dev": "tsx watch src/server.ts"
-   }
-  
-
-### Step 2: Push to GitHub
-
-Make sure your `.gitignore` includes `.env` and `node_modules/`, then push your changes:
-
-```bash
-git add .
-git commit -m "Final Deploy and Ready to go Live...."
-git push origin main
-````
-
-### Step 3: Create Render Web Service
+### Step 1: Create Render Web Service
 
 1. Log into the [Render Dashboard](https://render.com).
 2. Click **New +** > **Web Service**.
 3. Connect your GitHub account and select the required repository.
 
-### Step 4: Configure Web Service
+### Step 2: Configure Web Service
 
 Fill out the configuration dashboard with the following settings:
 
