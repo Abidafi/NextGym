@@ -38,55 +38,63 @@
 
 </div>
 
-## ✨ Key Features
+## ✨ Features
 
-- **🔐 Authentication & Authorization**
-  - JWT-based authentication
-  - Role-based access control (Contributor & Maintainer)
-  - Secure password hashing with bcrypt
+### Customer Features
 
-- **🐛 Issue Management**
-  - Create, read, update, and delete issues
-  - Filter issues by type (bug/feature_request) and status
-  - Sort issues by creation date
-  - Rich validation for issue creation and updates
+* User registration and role-based login. 
+* Place rental orders specifying items and dates. 
+* Secure payments integration via Stripe. 
+* Track rental order status and view payment history. 
+* Leave ratings and reviews after returning equipment. 
 
-- **👥 User Roles**
-  | Role | Allowed Actions |
-  | --- | --- |
-  | **contributor** | • Register and log in<br>• Create new issues (bug or feature request)<br>• View all issues<br>• Update own issue field |
-  | **maintainer** | • All contributor permissions<br>• Update any issue field<br>• Delete any issue<br>• Change issue workflow status independently<br>|
+### Provider Features
+
+* Add, update, and remove gear items from personal inventory. 
+* Monitor stock levels and availability. 
+* View and process incoming customer rental orders (confirm). 
+
+### Admin Features
+
+* Comprehensive user management (view, suspend, or activate users). 
+* Oversight of platform-wide gear listings and rental orders. 
+* Category administration. 
   
-- **📊 Workflow States**
-  - Open → In Progress → Resolved
-  - Role-based state transition permissions
 
 ## 🏗️ Architecture
 
 ```text
 src/
-├── config/
-│   └── db.ts                   # PostgreSQL connection pool
-├── middleware/
-│   ├── auth.middleware.ts       # JWT verification & role guards
-│   └── error.middleware.ts      # Global error handler
-├── modules/
-│   ├── auth/
-│   │   ├── auth.controller.ts
-│   │   ├── auth.interface.ts
-│   │   ├── auth.route.ts
-│   │   └── auth.service.ts
-│   └── issues/
-│       ├── issue.controller.ts
-│       ├── issue.interface.ts
-│       ├── issue.route.ts
-│       └── issue.service.ts
-├── utils/
-│   └── appError.ts             # Custom error class
-├── app.ts                      # Express application setup
-└── server.ts                   # Server entry point
+├── controllers/
+│   ├── admin.controller.ts
+│   ├── auth.controller.ts
+│   ├── gear.controller.ts
+│   ├── payment.controller.ts
+│   ├── provider.controller.ts
+│   ├── rental.controller.ts
+│   └── review.controller.ts
+├── middlewares/
+├── routes/
+│   ├── admin.routes.ts
+│   ├── auth.routes.ts
+│   ├── category.routes.ts
+│   ├── gear.routes.ts
+│   ├── index.ts
+│   ├── payment.routes.ts
+│   ├── provider.routes.ts
+│   ├── rental.routes.ts
+│   └── review.routes.ts
+├── validations/
+│   ├── auth.validation.ts
+│   ├── category.validation.ts
+│   ├── gear.validation.ts
+│   ├── rental.validation.ts
+│   └── review.validation.ts
+├── app.ts
+├── AppError.ts
+├── prisma.ts
+└── server.ts
 ```
-
 ## 🚀 Getting Started
 
 ### Prerequisites
