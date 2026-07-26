@@ -1,4 +1,4 @@
-# InteractionDashboard API - Issue Tracking System
+# NextGym 🏋️‍♂️ - "Rent Sports & Outdoor Gear Instantly"
 
 [![Node.js](https://img.shields.io/badge/Node.js-22.x-green.svg)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-6.0-blue.svg)](https://www.typescriptlang.org/)
@@ -8,9 +8,35 @@
 
 ## 📋 Overview
 
-**InteractionDashboard API** is a robust RESTful API backend system designed for issue tracking and management. Built with Node.js, Express, TypeScript, and PostgreSQL, it provides a secure and scalable solution for managing software development issues, feature requests, and bug tracking with role-based access control.
+**NextGym** is a robust backend API built for a sports and outdoor equipment rental service, designed and developed as a complete system implementation. Customers can browse available gear, place rental orders, make secure payments, and return equipment. Providers manage their gear inventory and fulfill rental orders, while Admins oversee the platform, manage users, and moderate listings.
 
-🔗 **Live API URL:** https://b07assignment-02.onrender.com/
+🔗 **Live Backend API URL:** https://nextgym.onrender.com/
+
+## 🛠️ Tech Stack
+
+<div align="left" style="background-color: #f4f6f9; padding: 10px; border-radius: 8px;">
+
+| Category | Technology | Purpose |
+| :--- | :--- | :--- |
+| **Backend** | Node.js + Express  | REST API |
+| **Language** | TypeScript  | Type safety |
+| **Database & ORM** | PostgreSQL + Prisma  | Database management & ORM |
+| **Authentication** | JWT (JSON Web Tokens)  | Secure user authentication |
+| **Deployment** | Render | Backend API hosting & deployment|
+
+</div>
+
+## 👥 Roles & Permissions
+
+<div align="left" style="background-color: #f4f6f9; padding: 10px; border-radius: 8px;">
+
+| Role | Description | Key Permissions |
+| :--- | :--- | :--- |
+| **Customer** | Users who rent sports gear | Browse gear, place rental orders, make payments, track status, leave reviews |
+| **Provider** | Gear vendors/rental shops | Manage gear inventory, view incoming orders, update order status |
+| **Admin** | Platform moderators | Manage users, oversee all rentals, manage gear categories |
+
+</div>
 
 ## ✨ Key Features
 
