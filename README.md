@@ -100,7 +100,7 @@ src/
 
 All API endpoints have been fully tested using Postman. You can access the complete Postman documentation and route breakdown below:
 
-🔗 **Postman API Docs:** [https://nextgym.onrender.com/](https://documenter.getpostman.com/view/51758518/2sBY4QtLLx)
+🔗 **Postman API Docs:** [Postman Docs ](https://documenter.getpostman.com/view/51758518/2sBY4QtLLx)
 
 ### Authentication
 | Method | Endpoint | Description |
