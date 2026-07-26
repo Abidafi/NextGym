@@ -180,7 +180,7 @@ Fill out the configuration dashboard with the following settings:
 | **Start Command** | `npm run start` |
 | **Instance Type** | `Free` |
 
-### Step 5: Environment Variables
+### Step 3: Environment Variables
 
 Navigate to the **Environment** tab (or click **Advanced**) and inject your keys:
 
@@ -189,14 +189,14 @@ Navigate to the **Environment** tab (or click **Advanced**) and inject your keys
 
 > ⚠️ **Note:** Do not add `PORT` manually. Render handles its own internal port allocation.
 
-### Step 6: Deploy & Verify
+### Step 4: Deploy & Verify
 
 1. Click **Deploy Web Service**.
 2. Monitor the **Logs** tab. Success is confirmed when you see your initialization logs:
    ```text
    🐘 PostgreSQL pool initialized successfully.
-   🚀 DevPulse server is racing hot on port 10000
-3. Copy your live public URL from the top left of the dashboard (e.g., https://devpulse-api.onrender.com ) to test in Postman or your browser.
+   🚀 NextGym server is racing hot on port 10000
+3. Copy your live public URL from the top left of the dashboard (e.g., [https://nextgym.onrender.com](https://nextgym.onrender.com/) ) to test in Postman or your browser.
 
 ## 🤝 Contributing
 
